@@ -5,14 +5,14 @@
   "environment": "development",
   "tracking": {
     "gtm_id": "GTM-XXXXXXX",
-    "enabled": true
+    "enabled": false
   },
   "forms": {
     "lead-form": {
       "id": "lead-form",
       "redirect_on_success": "",
       "webhooks": [
-        "https://n8n.dmove.com.br/webhook/SLUG-DO-PROJETO"
+        "https://SEU_N8N/webhook/seu-projeto"
       ],
       "fields_required": [
         "nome",
@@ -23,12 +23,12 @@
   },
   "deploy": {
     "user": "root",
-    "server": "",
-    "remote_path": "/var/www/dominio.com.br"
+    "server": "IP_DO_SERVIDOR",
+    "remote_path": "/var/www/seu-dominio.com.br"
   },
   "meta": {
     "created_at": "YYYY-MM-DD",
     "last_updated": "YYYY-MM-DD",
-    "owner": "Responsável"
+    "owner": "Nome do responsável"
   }
 }

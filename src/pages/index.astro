@@ -1,37 +1,587 @@
 ---
-import Base from '../layouts/Base.astro';
-import LeadForm from '../components/forms/LeadForm.astro';
-import config from '../../config.json';
-
-// Descomente conforme necessário:
-// import Img from '../components/ui/Img.astro';
-// import Video from '../components/ui/Video.astro';
-// import StaticMap from '../components/ui/StaticMap.astro';
-// import '../styles/index.css';
+// Gerado a partir de: agape-landing-v4 (2).html
+import Base from "../layouts/Base.astro";
+import config from "../../config.json";
+import Img from "../components/ui/Img.astro";
+import Video from "../components/ui/Video.astro";
+import StaticMap from "../components/ui/StaticMap.astro";
+import LeadForm from "../components/forms/LeadForm.astro";
+import "../styles/agape-landing-v4-2.css";
 ---
 
 <Base
-  title={`${config.project_name} | Título da página`}
-  description="Descrição da página para SEO."
+  title="Ágape Celebration & Convention — Casamentos"
+  description="Um cenário à beira-mar para casamentos sofisticados e inesquecíveis no litoral paulista."
   ogImage="/images/og-default.jpg"
-  canonical="https://dominio.com.br/"
 >
+  <!-- ═══ NAV ═══ -->
+  <nav class="nav" id="nav">
+    <div class="nav__logo">
+      <img
+        src="/images/logo-areia.png"
+        alt="Ágape Celebration & Convention"
+        class="nav__logo-img nav__logo--areia"
+        height="40"
+      />
+      <img
+        src="/images/logo-dourado.png"
+        alt=""
+        class="nav__logo-img nav__logo--dourado"
+        height="40"
+        aria-hidden="true"
+      />
+    </div>
+    <a href="#contato" class="btn btn--nav">Solicite orçamento</a>
+  </nav>
 
-  <!-- Cole o conteúdo migrado do Elementor aqui -->
-  <!-- Dica: use npm run scaffold para gerar automaticamente a partir de _html-originais/ -->
-
-  <section style="min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;text-align:center;padding:2rem;">
-    <h1>{config.project_name}</h1>
-    <p>Template pronto. Cole o HTML migrado do Elementor ou use <code>npm run scaffold</code>.</p>
-
-    <LeadForm
-      formId="lead-form"
-      project={config.project_slug}
-      submitUrl={config.forms['lead-form'].webhooks[0]}
-      redirectUrl={config.forms['lead-form'].redirect_on_success}
-      submitText="Enviar"
-      honeypot
-    />
+  <!-- ═══ HERO — limpo, título em 2 linhas, endereço ═══ -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg">
+      <Img src="hero.jpg" alt="Vista para o mar — Ágape Celebration" priority />
+      <div class="hero__overlay"></div>
+    </div>
+    <div class="hero__content fade-in">
+      <p class="hero__eyebrow">Destination Wedding</p>
+      <h1 class="hero__title">
+        Um cenário à beira-mar para casamentos sofisticados e inesquecíveis
+      </h1>
+    </div>
+    <div class="hero__scroll-hint">
+      <div class="hero__scroll-line"></div>
+    </div>
   </section>
 
+  <!-- ═══ AUTORIDADE ═══ -->
+  <section class="autoridade reveal" id="autoridade">
+    <div class="container container--narrow">
+      <span class="eyebrow eyebrow--dark">Por que Ágape</span>
+      <h2>
+        Experiência completa com<br /><span class="txt-gold"
+          ><i>cenários paradisíacos</i>
+        </span>
+      </h2>
+      <div class="ornament"></div>
+      <p class="lead">
+        Cada detalhe do Ágape Celebration foi pensado para proporcionar
+        exclusividade, conforto e fluidez em todos os momentos do evento, da
+        recepção dos convidados à experiência dos noivos durante a hospedagem.
+      </p>
+    </div>
+    <div class="container autoridade__blocos">
+      <div class="bloco reveal-stagger">
+        <div class="bloco__icon">
+          <svg viewBox="0 0 32 32" fill="none"
+            ><path
+              d="M4 24c4-4 8-6 12-6s8 2 12 6"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"></path><path
+              d="M2 28c5-6 9-10 14-10s9 4 14 10"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              opacity=".4"></path><circle
+              cx="16"
+              cy="10"
+              r="4"
+              stroke="currentColor"
+              stroke-width="1.4"></circle>
+          </svg>
+        </div>
+        <h3>Praia praticamente exclusiva</h3>
+        <p>
+          Acesso privilegiado à beira-mar, reservado para os seus convidados em
+          um dos trechos mais belos do litoral paulista.
+        </p>
+      </div>
+      <div class="bloco reveal-stagger">
+        <div class="bloco__icon">
+          <svg viewBox="0 0 32 32" fill="none"
+            ><rect
+              x="4"
+              y="12"
+              width="24"
+              height="16"
+              rx="2"
+              stroke="currentColor"
+              stroke-width="1.4"></rect><path
+              d="M10 12V8a6 6 0 0 1 12 0v4"
+              stroke="currentColor"
+              stroke-width="1.4"></path><circle
+              cx="16"
+              cy="20"
+              r="2"
+              stroke="currentColor"
+              stroke-width="1.4"></circle>
+          </svg>
+        </div>
+        <h3>Estrutura integrada para evento e hospedagem</h3>
+        <p>
+          Espaços para cerimônia, festa e acomodação reunidos em um único
+          endereço, eliminando deslocamentos e garantindo fluidez.
+        </p>
+      </div>
+      <div class="bloco reveal-stagger">
+        <div class="bloco__icon">
+          <svg viewBox="0 0 32 32" fill="none"
+            ><path
+              d="M16 4C10 4 6 9 6 14c0 7 10 14 10 14s10-7 10-14c0-5-4-10-10-10z"
+              stroke="currentColor"
+              stroke-width="1.4"></path><circle
+              cx="16"
+              cy="14"
+              r="3"
+              stroke="currentColor"
+              stroke-width="1.4"></circle>
+          </svg>
+        </div>
+        <h3>Atendimento personalizado</h3>
+        <p>
+          Uma equipe dedicada acompanha cada etapa do planejamento, garantindo
+          que cada detalhe seja exatamente como você sempre sonhou.
+        </p>
+      </div>
+      <div class="bloco reveal-stagger">
+        <div class="bloco__icon">
+          <svg viewBox="0 0 32 32" fill="none"
+            ><path
+              d="M6 8h20M6 16h20M6 24h12"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3>Ambiente reservado e sofisticado</h3>
+        <p>
+          Privacidade absoluta e uma atmosfera de sofisticação que transforma
+          cada momento em uma memória permanente.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIÊNCIA ═══ -->
+  <section class="experiencia reveal" id="experiencia">
+    <div class="container container--narrow">
+      <span class="eyebrow">A celebração</span>
+      <h2>
+        Aqui, a <i>paisagem natural</i><br /><span class="txt-gold"
+          >se torna parte da celebração.</span
+        >
+      </h2>
+      <div class="ornament"></div>
+      <p class="lead">
+        Cerimônias ao pôr do sol, hospedagem para convidados, experiências
+        prolongadas e a sensação de viver um destination wedding sem sair do
+        litoral paulista.
+      </p>
+    </div>
+    <div class="container experiencia__cards">
+      <div class="exp-card reveal-stagger">
+        <Img
+          src="pre-wedding.jpg"
+          alt="Espaço de making of e preparação da noiva"
+          class="exp-card__img"
+        />
+        <div class="exp-card__body">
+          <span class="exp-card__tag">Pré Wedding</span>
+          <p>
+            Ambientes reservados para o making of e preparação da noiva e
+            madrinhas.
+          </p>
+        </div>
+      </div>
+      <div class="exp-card reveal-stagger">
+        <Img
+          src="cerimonia-pe-na-areia.jpg"
+          alt="Cerimônia pé na areia à beira-mar"
+          class="exp-card__img"
+        />
+        <div class="exp-card__body">
+          <span class="exp-card__tag">Cerimônia pé na areia</span>
+          <p>
+            Cerimônias à beira-mar com estrutura integrada e vista privilegiada.
+          </p>
+        </div>
+      </div>
+      <div class="exp-card reveal-stagger">
+        <Img
+          src="destination-wedding.jpg"
+          alt="Destination wedding — acomodações com vista para o mar"
+          class="exp-card__img"
+        />
+        <div class="exp-card__body">
+          <span class="exp-card__tag">Destination Wedding</span>
+          <p>
+            Acomodações sofisticadas para viver cada momento do casamento com
+            calma, conforto e vista para o mar.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ESTRUTURA — tipográfica, sem ícones ═══ -->
+  <section class="estrutura reveal" id="estrutura">
+    <div class="container container--narrow">
+      <span class="eyebrow eyebrow--dark">Infraestrutura</span>
+      <h2>
+        <i>Celebração e hospedagem</i><br /><span class="txt-gold"
+          >reunidas em um único cenário</span
+        >
+      </h2>
+      <div class="ornament"></div>
+      <p class="lead">
+        O Ágape une estrutura para eventos de alto padrão com acomodações
+        sofisticadas, oferecendo praticidade, conforto e exclusividade para
+        noivos e convidados.
+      </p>
+    </div>
+    <div class="container estrutura__grid">
+      <div class="estrutura__item reveal-stagger" data-num="I">
+        <span class="estrutura__label">Deck exclusivo à beira-mar</span>
+      </div>
+      <div class="estrutura__item reveal-stagger" data-num="II">
+        <span class="estrutura__label">Suíte premium para os noivos</span>
+      </div>
+      <div class="estrutura__item reveal-stagger" data-num="III">
+        <span class="estrutura__label">Lounge privativo para noiva e madrinhas</span>
+      </div>
+      <div class="estrutura__item reveal-stagger" data-num="IV">
+        <span class="estrutura__label">Hospedagem sofisticada para convidados</span>
+      </div>
+      <div class="estrutura__item reveal-stagger" data-num="V">
+        <span class="estrutura__label">Acessibilidade</span>
+      </div>
+      <div class="estrutura__item reveal-stagger" data-num="VI">
+        <span class="estrutura__label">Sistema de som integrado</span>
+      </div>
+      <div class="estrutura__item reveal-stagger" data-num="VII">
+        <span class="estrutura__label">Estacionamento</span>
+      </div>
+      <div class="estrutura__item reveal-stagger" data-num="VIII">
+        <span class="estrutura__label">Gerador próprio para suporte do evento</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOSPEDAGEM — mosaico ═══ -->
+  <section class="hospedagem reveal" id="hospedagem">
+    <div class="hospedagem__inner">
+      <div class="hospedagem__text">
+        <span class="eyebrow eyebrow--dark">Acomodações</span>
+        <h2>
+          <i>Conforto</i> pensado<br /><span class="txt-gold"
+            >em cada detalhe</span
+          >
+        </h2>
+        <p>
+          Com estrutura integrada ao evento, a hospedagem permite viver cada
+          momento com mais presença, leveza e conexão.
+        </p>
+      </div>
+      <div class="hospedagem__mosaic">
+        <div class="hospedagem__mosaic-item">
+          <Img src="estrutura-01.jpg" alt="Piscina e área de lazer beira-mar — Ágape" />
+        </div>
+        <div class="hospedagem__mosaic-item">
+          <Img src="estrutura-02.jpg" alt="Acomodação com vista para o mar — Ágape" />
+        </div>
+        <div class="hospedagem__mosaic-item">
+          <Img src="estrutura-03.jpg" alt="Quarto com vista para o mar — Ágape" />
+        </div>
+        <div class="hospedagem__mosaic-item">
+          <Img src="estrutura-04.jpg" alt="Área de lazer e piscina — Ágape" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DEPOIMENTOS — claro e premium ═══ -->
+  <section class="depoimentos reveal" id="depoimentos">
+    <div class="container container--narrow">
+      <span class="eyebrow eyebrow--dark">Depoimentos</span>
+      <h2>
+        <i>Hospitalidade que conquista</i><br /><span class="txt-gold"
+          >hóspedes e convidados</span
+        >
+      </h2>
+      <div class="ornament"></div>
+      <p class="lead">
+        A experiência oferecida pelo Ágape já é reconhecida pela excelência no
+        atendimento, conforto e estrutura.
+      </p>
+    </div>
+    <div class="container depoimentos__grid">
+      <div class="depo reveal-stagger">
+        <div class="depo__stars">★★★★★</div>
+        <blockquote>"Espaço para depoimento do Google Meu Negócio."</blockquote>
+        <cite>— Nome do cliente, data</cite>
+      </div>
+      <div class="depo reveal-stagger">
+        <div class="depo__stars">★★★★★</div>
+        <blockquote>"Espaço para depoimento do Google Meu Negócio."</blockquote>
+        <cite>— Nome do cliente, data</cite>
+      </div>
+      <div class="depo reveal-stagger">
+        <div class="depo__stars">★★★★★</div>
+        <blockquote>"Espaço para depoimento do Google Meu Negócio."</blockquote>
+        <cite>— Nome do cliente, data</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GALERIA — mosaico com vídeo integrado ═══ -->
+  <section class="galeria reveal" id="galeria">
+    <div class="container container--narrow">
+      <span class="eyebrow eyebrow--dark">Galeria</span>
+      <h2>
+        Inspire-se para viver<br /><span class="txt-gold"
+          ><i>seu casamento nesse cenário</i>
+        </span>
+      </h2>
+      <div class="ornament"></div>
+    </div>
+    <div class="galeria__grid">
+      <!-- Linha 1: 3 fotos -->
+      <div class="galeria__item">
+        <Img src="galeria-01.jpg" alt="Foto da galeria Ágape 1" />
+      </div>
+      <div class="galeria__item">
+        <Img src="galeria-02.jpg" alt="Foto da galeria Ágape 2" />
+      </div>
+      <div class="galeria__item">
+        <Img src="galeria-03.jpg" alt="Foto da galeria Ágape 3" />
+      </div>
+      <!-- Linha 2+3: foto | vídeo portrait (rowspan 2) | foto -->
+      <div class="galeria__item">
+        <Img src="galeria-04.jpg" alt="Foto da galeria Ágape 4" />
+      </div>
+      <div class="galeria__item">
+        <Img src="galeria-05.jpg" alt="Foto da galeria Ágape 5" />
+      </div>
+      <div class="galeria__item">
+        <Img src="galeria-06.jpg" alt="Foto da galeria Ágape 6" />
+      </div>
+      <div class="galeria__item">
+        <Img src="galeria-07.jpg" alt="Foto da galeria Ágape 7" />
+      </div>
+      <!-- Vídeo portrait posicionado por CSS em col 2, rows 2–3 -->
+      <div class="galeria__video">
+        <Video
+          src="/videos/agape.mp4"
+          poster="/images/video-poster.jpg"
+          title="Espaço Ágape Celebration"
+          description="Vídeo do espaço Ágape Celebration — casamentos à beira-mar em São Sebastião"
+          uploadDate="2026-05-18"
+          duration="PT2M"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTATO ═══ -->
+  <section class="contato reveal" id="contato">
+    <div class="contato__inner">
+      <div class="contato__text">
+        <span class="eyebrow eyebrow--dark">Fale conosco</span>
+        <h2>
+          Vamos começar a planejar o<br /><i>casamento dos seus sonhos?</i>
+        </h2>
+        <div class="ornament" style="margin-left:0;"></div>
+        <p>Preencha o formulário para receber nosso contato.</p>
+      </div>
+      <div class="contato__form-wrap">
+        <LeadForm
+          formId="lead-form"
+          project={config.project_slug}
+          submitUrl={config.forms["lead-form"].webhooks[0]}
+          redirectUrl={config.forms["lead-form"].redirect_on_success}
+          submitText="Solicitar Orçamento"
+          honeypot
+          fields={[
+            {
+              name: "nome",
+              type: "text",
+              label: "Nome",
+              placeholder: "Seu nome completo",
+              required: true,
+              full: true,
+            },
+            {
+              type: "row",
+              fields: [
+                {
+                  name: "telefone",
+                  type: "tel",
+                  label: "Telefone",
+                  placeholder: "(00) 00000-0000",
+                  required: true,
+                },
+                {
+                  name: "email",
+                  type: "email",
+                  label: "E-mail",
+                  placeholder: "seu@email.com",
+                  required: true,
+                },
+              ],
+            },
+            {
+              type: "row",
+              fields: [
+                {
+                  name: "data",
+                  type: "text",
+                  label: "Data do Evento",
+                  placeholder: "dd/mm/aaaa",
+                  required: false,
+                },
+                {
+                  name: "convidados",
+                  type: "number",
+                  label: "Número de Convidados",
+                  placeholder: "Ex: 150",
+                  required: false,
+                },
+              ],
+            },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LOCALIZAÇÃO ═══ -->
+  <section class="localizacao reveal" id="localizacao">
+    <div class="container container--narrow">
+      <span class="eyebrow eyebrow--dark">Como chegar</span>
+      <h2>Litoral Norte</h2>
+      <p class="lead">Localizado em São Sebastião, o Ágape reúne acessibilidade, cenário natural e exclusividade em um dos destinos mais desejados do litoral paulista.</p>
+    </div>
+    <div class="localizacao__map">
+      <StaticMap
+        src="https://www.google.com/maps?q=Av.+Guarda+Mor+Lobo+Viana,+1038+%E2%80%93+Centro,+S%C3%A3o+Sebasti%C3%A3o+-+SP&output=embed"
+        height={420}
+      />
+    </div>
+    <p class="localizacao__address">
+      Av. Guarda Mor Lobo Viana, 1038 &nbsp;—&nbsp; Centro, São Sebastião – SP,
+      11600-000
+    </p>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <img
+        src="/images/logo-areia.png"
+        alt="Ágape Celebration & Convention"
+        class="footer__logo"
+        height="60"
+      />
+      <p>São Sebastião &nbsp;·&nbsp; Litoral Paulista</p>
+      <a href="#contato" class="btn btn--ghost">Solicite orçamento</a>
+    </div>
+    <div class="footer__bottom">
+      <p>
+        &copy; 2026 Ágape Celebration & Convention. Todos os direitos
+        reservados.
+      </p>
+      <a
+        href="https://dmove.com.br/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer__dmove"
+      >
+        Desenvolvido por <img
+          src="/images/logo.dmove.avif"
+          alt="Dmove"
+          class="footer__dmove-logo"
+        />
+      </a>
+    </div>
+  </footer>
 </Base>
+<script>
+  import "../scripts/agape-landing-v4-2.js";
+</script>
+
+<style is:global>
+  /* Form — overrides dos estilos escopados do LeadForm */
+  .contato .lead-form {
+    max-width: none;
+    width: 100%;
+  }
+  .contato .lead-form-grid {
+    gap: 1.1rem;
+  }
+  .contato .form-label {
+    font-family: var(--ff-body);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+  }
+  .contato .form-input,
+  .contato .form-select,
+  .contato .form-textarea {
+    background: var(--clr-ivory);
+    border: 1px solid var(--clr-sand);
+    border-radius: var(--radius);
+    color: var(--clr-dark);
+    font-family: var(--ff-body);
+    font-size: var(--fs-sm);
+    padding: 0.9rem 1.1rem;
+  }
+  .contato .form-input::placeholder,
+  .contato .form-textarea::placeholder {
+    color: var(--clr-muted);
+    opacity: 0.55;
+  }
+  .contato .form-input:focus,
+  .contato .form-select:focus,
+  .contato .form-textarea:focus {
+    border-color: var(--clr-gold);
+    box-shadow: 0 0 0 3px rgba(196, 164, 107, 0.1);
+    outline: none;
+  }
+  .contato .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .contato .btn-primary {
+    background: var(--clr-gold-dk);
+    color: var(--clr-ivory);
+    border-radius: var(--radius);
+    font-family: var(--ff-body);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.9rem 2.5rem;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .contato .btn-primary:hover {
+    background: var(--clr-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(42, 33, 24, 0.18);
+  }
+  .contato .form-footer {
+    font-family: var(--ff-body);
+    font-size: var(--fs-xs);
+    color: var(--clr-muted);
+    text-align: center;
+  }
+  .contato__text h2 {
+    font-size: clamp(1.35rem, 2.4vw, 2rem);
+  }
+  @media (max-width: 640px) {
+    .contato .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

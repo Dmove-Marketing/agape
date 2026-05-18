@@ -2,6 +2,9 @@ node_modules/
 dist/
 .astro/
 
+# Config local (credenciais de deploy e webhook) — use config.example.json como base
+config.json
+
 # Variáveis de ambiente
 .env
 .env.*
@@ -10,6 +13,19 @@ dist/
 # Logs e Caches
 *.log
 npm-debug.log*
+
+# Mídia original (imagens e vídeo fonte — não versionar arquivos grandes)
+_html-originais/Imagens_video/
+
+# Vídeo do site (220 MB — hospedar em CDN/VPS, não no git)
+public/videos/
+
+# Screenshots de debug (geradas durante desenvolvimento)
+public/images/terminal.png
+public/images/problema.png
+public/images/secao_*.png
+public/images/form_*.png
+public/images/hero_*.png
 
 # OS e Editores / IA
 .DS_Store
