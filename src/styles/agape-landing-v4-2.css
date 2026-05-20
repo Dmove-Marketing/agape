@@ -482,6 +482,11 @@ p, li, label, input, textarea, .form__msg {
   gap: 1.5rem;
   margin-top: var(--space-lg);
 }
+@media (min-width: 1024px) {
+  .depoimentos__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 .depo {
   background: var(--clr-ivory);
   border: 1px solid var(--clr-sand);
@@ -647,6 +652,10 @@ p, li, label, input, textarea, .form__msg {
   border: 1px solid var(--clr-sand);
 }
 .localizacao__map iframe { width: 100%; height: 420px; display: block; border: none; }
+.localizacao__map img { width: 100%; height: 420px; display: block; object-fit: cover; object-position: center left; }
+@media (max-width: 768px) {
+  .localizacao__map img { object-position: center center; }
+}
 .localizacao__address {
   text-align: center; margin-top: 1.5rem;
   font-family: var(--ff-body);
