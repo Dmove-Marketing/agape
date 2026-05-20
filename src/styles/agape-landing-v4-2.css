@@ -734,6 +734,8 @@ p, li, label, input, textarea, .form__msg {
   :root { --space-xl: 5rem; --space-lg: 3rem; }
   .autoridade__blocos { grid-template-columns: 1fr; }
   .estrutura__grid { grid-template-columns: 1fr 1fr; }
+  .estrutura__item { padding: 1.75rem 1.25rem 1.5rem; }
+  .estrutura__item span.estrutura__label { font-size: var(--fs-base); }
   .form__row { grid-template-columns: 1fr; }
   .hero__title { font-size: clamp(1.4rem, 6vw, 2.0rem); max-width: 28em; }
   .hospedagem__mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px; }
