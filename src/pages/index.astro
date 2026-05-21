@@ -7,6 +7,9 @@ import Video from "../components/ui/Video.astro";
 import StaticMap from "../components/ui/StaticMap.astro";
 import LeadForm from "../components/forms/LeadForm.astro";
 import "../styles/agape-landing-v4-2.css";
+import logoWaIcon from "../assets/images/Logo_para_icon_whatsapp.png";
+import fundoWaUrl from "../assets/images/Fundo-WhatsApp-1.avif?url";
+import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
 ---
 
 <Base
@@ -478,6 +481,82 @@ import "../styles/agape-landing-v4-2.css";
     </p>
   </section>
 
+  <!-- ═══ POPUP PRÉ-WHATSAPP ═══ -->
+  <div class="wa-backdrop" id="waBackdrop" aria-hidden="true"></div>
+  <div class="wa-popup" id="waPopup" role="dialog" aria-modal="true" aria-labelledby="waPopupTitle">
+
+    <!-- Cabeçalho estilo WhatsApp -->
+    <div class="wa-popup__head">
+      <div class="wa-popup__avatar">
+        <img src={logoWaIcon.src} alt="Ágape" />
+      </div>
+      <div class="wa-popup__info">
+        <strong id="waPopupTitle">Ágape Celebration</strong>
+        <span class="wa-popup__status">
+          <span class="wa-popup__dot"></span>Online
+        </span>
+      </div>
+      <button class="wa-popup__close" id="waPopupClose" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Área de conversa -->
+    <div class="wa-popup__body" style={`background-image: url('${fundoWaUrl}')`}>
+
+      <!-- Bolha de mensagem recebida -->
+      <div class="wa-bubble">
+        <p>Olá, vamos conversar?</p>
+        <p>Por favor, preencha as informações a seguir e vamos iniciar nossa conversa no WhatsApp.</p>
+        <p>Estamos ansiosos para saber mais sobre seu evento! 🎉</p>
+      </div>
+
+      <!-- Indicador de etapas -->
+      <div class="wa-steps">
+        <span class="wa-step wa-step--active" id="waStep1Dot">①</span>
+        <span class="wa-step-line"></span>
+        <span class="wa-step" id="waStep2Dot">②</span>
+      </div>
+
+      <!-- Formulário -->
+      <form
+        id="waForm"
+        data-form-id="whatsapp-form"
+        data-project={config.project_slug}
+        data-submit-url={config.forms["lead-form"].webhooks[0]}
+        novalidate
+      >
+        <input type="text" name="website" class="wa-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <!-- Etapa 1: dados de contato -->
+        <div id="waStep1" class="wa-step-fields">
+          <input class="wa-input" id="waNome" name="nome" type="text" placeholder="Nome completo" required autocomplete="name" />
+          <input class="wa-input" id="waTelefone" name="telefone" type="tel" placeholder="(00) 00000-0000" required autocomplete="tel" />
+          <input class="wa-input" id="waEmail" name="email" type="email" placeholder="E-mail" required autocomplete="email" />
+        </div>
+
+        <!-- Etapa 2: dados do evento -->
+        <div id="waStep2" class="wa-step-fields" style="display:none">
+          <input class="wa-input" id="waData" name="data" type="text" placeholder="Data do evento (dd/mm/aaaa)" />
+          <input class="wa-input" id="waConvidados" name="convidados" type="number" placeholder="Número de convidados" />
+        </div>
+
+        <p class="wa-error" id="waError" style="display:none"></p>
+
+        <button class="wa-submit" type="button" id="waNextBtn">Seguir</button>
+        <button class="wa-submit wa-submit--send" type="submit" id="waSubmitBtn" style="display:none">
+          <span class="wa-submit__text">Enviar e continuar no WhatsApp</span>
+          <span class="wa-submit__loading" style="display:none">Enviando…</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Botão flutuante WhatsApp -->
+  <button class="wa-float" id="waFloat" aria-label="Fale pelo WhatsApp">
+    <img src={iconeWaUrl} alt="WhatsApp" width="58" height="58" />
+  </button>
+
   <!-- ═══ FOOTER ═══ -->
   <footer class="footer">
     <div class="footer__inner">
@@ -512,6 +591,163 @@ import "../styles/agape-landing-v4-2.css";
 </Base>
 <script>
   import "../scripts/agape-landing-v4-2.js";
+</script>
+
+<script>
+  const WA_NUMBER  = '5512988719595';
+  const WA_MESSAGE = 'Olá! Gostaria de receber mais informações sobre o espaço Ágape Celebration para o meu evento.';
+
+  const backdrop   = document.getElementById('waBackdrop')!;
+  const popup      = document.getElementById('waPopup')!;
+  const closeBtn   = document.getElementById('waPopupClose')!;
+  const floatBtn   = document.getElementById('waFloat')!;
+  const form       = document.getElementById('waForm') as HTMLFormElement;
+  const errorEl    = document.getElementById('waError')!;
+  const step1El    = document.getElementById('waStep1')!;
+  const step2El    = document.getElementById('waStep2')!;
+  const step1Dot   = document.getElementById('waStep1Dot')!;
+  const step2Dot   = document.getElementById('waStep2Dot')!;
+  const nextBtn    = document.getElementById('waNextBtn') as HTMLButtonElement;
+  const submitBtn  = document.getElementById('waSubmitBtn') as HTMLButtonElement;
+  const btnText    = submitBtn.querySelector<HTMLElement>('.wa-submit__text')!;
+  const btnLoad    = submitBtn.querySelector<HTMLElement>('.wa-submit__loading')!;
+
+  function openPopup() {
+    backdrop.classList.add('is-open');
+    popup.classList.add('is-open');
+    const first = form.querySelector<HTMLElement>('input:not(.wa-hp)');
+    setTimeout(() => first?.focus(), 50);
+  }
+
+  function closePopup() {
+    backdrop.classList.remove('is-open');
+    popup.classList.remove('is-open');
+  }
+
+  floatBtn.addEventListener('click', openPopup);
+  closeBtn.addEventListener('click', closePopup);
+  backdrop.addEventListener('click', closePopup);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+
+  // Máscara de telefone
+  const telInput = form.querySelector<HTMLInputElement>('[name="telefone"]')!;
+  telInput.addEventListener('input', () => {
+    let v = telInput.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 7)      v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    telInput.value = v;
+  });
+
+  // Avançar etapa 1 → 2
+  nextBtn.addEventListener('click', () => {
+    errorEl.style.display = 'none';
+    let firstInvalid: HTMLElement | null = null;
+    let valid = true;
+    step1El.querySelectorAll<HTMLElement>('[required]').forEach((f) => {
+      const empty = !(f as HTMLInputElement).value.trim();
+      if (empty) {
+        valid = false;
+        (f as HTMLElement).style.borderColor = '#ef4444';
+        if (!firstInvalid) firstInvalid = f;
+        const clear = () => { (f as HTMLElement).style.removeProperty('border-color'); f.removeEventListener('input', clear); };
+        f.addEventListener('input', clear);
+      }
+    });
+    if (!valid) { firstInvalid!.focus(); return; }
+
+    step1El.style.display = 'none';
+    step2El.style.display = 'flex';
+    nextBtn.style.display = 'none';
+    submitBtn.style.display = 'flex';
+    step1Dot.classList.remove('wa-step--active');
+    step2Dot.classList.add('wa-step--active');
+    (step2El.querySelector('input') as HTMLElement)?.focus();
+  });
+
+  // Submissão
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Se ainda está na etapa 1, avança em vez de enviar
+    if (step2El.style.display === 'none') {
+      nextBtn.click();
+      return;
+    }
+
+    const hp = form.querySelector<HTMLInputElement>('[name="website"]');
+    if (hp?.value) return;
+
+    submitBtn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoad.style.display = 'inline';
+    errorEl.style.display = 'none';
+
+    const formData = new FormData(form);
+    const raw: Record<string, string> = {};
+    formData.forEach((v, k) => { if (k !== 'website') raw[k] = v.toString(); });
+
+    const trackingRaw = sessionStorage.getItem('dmove_tracking');
+    const tracking: Record<string, string> = trackingRaw ? JSON.parse(trackingRaw) : {};
+    const now = new Date();
+
+    const capitalized: Record<string, string> = {};
+    Object.entries(raw).forEach(([k, v]) => {
+      if (k === 'fonte') return;
+      capitalized[k.charAt(0).toUpperCase() + k.slice(1)] = v;
+    });
+
+    const paramKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','utm_id','gclid','gbraid','wbraid','fbclid','ttclid','msclkid','sck','fbc','fbp','external_id','event_id'];
+    const qs = new URLSearchParams();
+    paramKeys.forEach(k => { if (tracking[k]) qs.set(k, tracking[k]); });
+    const submitUrl = form.dataset.submitUrl!;
+    const fonte = qs.toString() ? `${submitUrl}?${qs.toString()}` : submitUrl;
+
+    const metaCapi: Record<string,string> = {};
+    if (tracking['fbc'])         metaCapi['fbc']         = tracking['fbc'];
+    if (tracking['fbp'])         metaCapi['fbp']         = tracking['fbp'];
+    if (tracking['external_id']) metaCapi['external_id'] = tracking['external_id'];
+    if (tracking['event_id'])    metaCapi['event_id']    = tracking['event_id'];
+
+    const payload = {
+      ...capitalized,
+      Fonte: fonte,
+      Data: now.toLocaleDateString('pt-BR'),
+      'Horário': now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+      'URL da página': window.location.href,
+      'Agente de usuário': navigator.userAgent,
+      'IP remoto': '',
+      'Desenvolvido por': 'Dmove',
+      form_id: 'whatsapp-form',
+      form_name: 'whatsapp-form',
+      ...metaCapi,
+    };
+
+    try {
+      const res = await fetch(submitUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('http_' + res.status);
+
+      (window as any).dataLayer?.push({ event: 'form_submit', form_id: 'whatsapp-form', project: form.dataset.project, ...capitalized });
+
+      const encoded = encodeURIComponent(WA_MESSAGE);
+      const waUrl = WA_NUMBER
+        ? `https://wa.me/${WA_NUMBER}?text=${encoded}`
+        : `https://wa.me/?text=${encoded}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+      closePopup();
+    } catch (err: any) {
+      (window as any).dataLayer?.push({ event: 'form_error', form_id: 'whatsapp-form', error: err.message });
+      errorEl.textContent = 'Erro ao enviar. Tente novamente mais tarde.';
+      errorEl.style.display = 'block';
+      submitBtn.disabled = false;
+      btnText.style.display = 'inline';
+      btnLoad.style.display = 'none';
+    }
+  });
 </script>
 
 <style is:global>
@@ -590,5 +826,194 @@ import "../styles/agape-landing-v4-2.css";
     .contato .form-row {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* ── Popup pré-WhatsApp — estilo widget de chat ── */
+  .wa-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    z-index: 900;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .wa-backdrop.is-open { opacity: 1; pointer-events: auto; }
+
+  .wa-popup {
+    position: fixed;
+    bottom: 5.5rem; right: 1.5rem;
+    width: min(360px, calc(100vw - 2rem));
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 901;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.28);
+    opacity: 0; pointer-events: none;
+    transform: translateY(16px) scale(0.96);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .wa-popup.is-open { opacity: 1; pointer-events: auto; transform: none; }
+
+  /* Cabeçalho verde */
+  .wa-popup__head {
+    background: #075E54;
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+  .wa-popup__avatar {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .wa-popup__avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .wa-popup__info { flex: 1; min-width: 0; }
+  .wa-popup__info strong {
+    display: block;
+    font-family: var(--ff-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .wa-popup__status {
+    font-family: var(--ff-body);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.8);
+    display: flex; align-items: center; gap: 4px;
+  }
+  .wa-popup__dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #25D366; flex-shrink: 0;
+  }
+  .wa-popup__close {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.8); padding: 4px;
+    display: flex; align-items: center;
+    transition: color 0.15s;
+  }
+  .wa-popup__close:hover { color: #fff; }
+  .wa-popup__close svg { width: 18px; height: 18px; }
+
+  /* Corpo — wallpaper WhatsApp */
+  .wa-popup__body {
+    background: #ECE5DD;
+    background-size: cover;
+    background-position: center;
+    padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.85rem;
+  }
+
+  /* Bolha de mensagem */
+  .wa-bubble {
+    background: #fff;
+    border-radius: 0 8px 8px 8px;
+    padding: 0.65rem 0.85rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.13);
+    max-width: 90%;
+    position: relative;
+  }
+  .wa-bubble::before {
+    content: '';
+    position: absolute; top: 0; left: -8px;
+    border: 8px solid transparent;
+    border-top-color: #fff;
+    border-right-color: #fff;
+    border-top-left-radius: 0;
+  }
+  .wa-bubble p {
+    font-family: var(--ff-body);
+    font-size: 0.8125rem;
+    color: #303030;
+    line-height: 1.5;
+    margin-bottom: 0.3rem;
+  }
+  .wa-bubble p:last-child { margin-bottom: 0; }
+
+  /* Indicador de etapas */
+  .wa-steps {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .wa-step {
+    font-family: var(--ff-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #aaa;
+    transition: color 0.2s;
+  }
+  .wa-step--active { color: #075E54; }
+  .wa-step-line {
+    flex: 1; max-width: 80px; height: 1px;
+    background: #ccc;
+  }
+
+  /* Campos do formulário */
+  #waForm { display: flex; flex-direction: column; gap: 0.55rem; }
+  .wa-step-fields { display: flex; flex-direction: column; gap: 0.55rem; }
+  .wa-hp {
+    position: absolute; left: -9999px; width: 1px; height: 1px;
+    opacity: 0; pointer-events: none;
+  }
+  .wa-input {
+    background: #f0faf0;
+    border: 1px solid #d0e8d0;
+    border-radius: 6px;
+    color: #303030;
+    font-family: var(--ff-body);
+    font-size: 0.8125rem;
+    padding: 0.7rem 0.9rem;
+    width: 100%;
+    transition: border-color 0.18s, box-shadow 0.18s;
+  }
+  .wa-input::placeholder { color: #999; }
+  .wa-input:focus {
+    border-color: #25D366;
+    box-shadow: 0 0 0 2px rgba(37,211,102,0.15);
+    outline: none;
+  }
+
+  .wa-error {
+    font-family: var(--ff-body);
+    font-size: 0.72rem;
+    color: #ef4444;
+    text-align: center;
+  }
+
+  /* Botões */
+  .wa-submit {
+    align-self: flex-end;
+    background: #075E54;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--ff-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    transition: background 0.18s;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .wa-submit:hover:not(:disabled) { background: #128C7E; }
+  .wa-submit:disabled { opacity: 0.65; cursor: not-allowed; }
+  .wa-submit--send { width: 100%; }
+
+  /* Botão flutuante */
+  .wa-float {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    width: 58px; height: 58px;
+    border: none; border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    z-index: 800;
+    padding: 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 22px rgba(0,0,0,0.32); }
+  .wa-float img { width: 58px; height: 58px; display: block; border-radius: 50%; }
+
+  @media (max-width: 420px) {
+    .wa-popup { right: 0.75rem; bottom: 5rem; width: calc(100vw - 1.5rem); }
+    .wa-float { right: 0.75rem; }
   }
 </style>
