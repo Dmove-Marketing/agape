@@ -1,5 +1,4 @@
 ---
-// Gerado a partir de: agape-landing-v4 (2).html
 import Base from "../layouts/Base.astro";
 import config from "../../config.json";
 import Img from "../components/ui/Img.astro";
@@ -13,7 +12,7 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
 ---
 
 <Base
-  title="Ágape Celebration & Convention — Casamentos"
+  title="Ágape Celebration & Convention — Inauguração"
   description="Um cenário à beira-mar para casamentos sofisticados e inesquecíveis no litoral paulista."
   ogImage="/images/og-default.jpg"
 >
@@ -44,13 +43,38 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
       <div class="hero__overlay"></div>
     </div>
     <div class="hero__content fade-in">
-      <p class="hero__eyebrow">Destination Wedding</p>
-      <h1 class="hero__title">
-        Um cenário à beira-mar para casamentos sofisticados e inesquecíveis
-      </h1>
+      <div class="hero__top">
+        <p class="hero__eyebrow">Destination Wedding</p>
+        <h1 class="hero__title">
+          Um novo cenário à beira-mar para casamentos exclusivos no litoral paulista
+        </h1>
+        <p class="hero__text">
+          Aproveite as condições especiais para os primeiros eventos e viva uma experiência sofisticada em um cenário encantador.
+        </p>
+      </div>
+      <div class="hero__bottom">
+        <a href="#contato" class="btn btn--primary">Consulte agenda inaugural</a>
+      </div>
     </div>
     <div class="hero__scroll-hint">
       <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══ RESERVAS (Novo) ═══ -->
+  <section class="reservas reveal" id="reservas">
+    <div class="reservas__inner">
+      <div class="reservas__text">
+        <span class="eyebrow eyebrow--dark">Oportunidade</span>
+        <h2>Condições exclusivas para os primeiros eventos</h2>
+        <p>
+          Os primeiros casais terão acesso a benefícios exclusivos e condições especiais para celebrar em um espaço criado para experiências sofisticadas à beira-mar.
+        </p>
+        <a href="#contato" class="btn btn--primary">Consulte datas disponíveis</a>
+      </div>
+      <div class="reservas__img">
+        <Img src="hospedagem-01.jpg" alt="Condições exclusivas no Ágape Celebration" />
+      </div>
     </div>
   </section>
 
@@ -159,7 +183,7 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
       </h2>
       <div class="ornament"></div>
       <p class="lead">
-        Cerimônias frente ao mar, hospedagem para convidados, experiências prolongadas e a sensação de viver um destination wedding sem sair do litoral paulista.
+        Cerimônias ao pôr do sol, hospedagem para convidados, experiências prolongadas e a sensação de viver um destination wedding sem sair do litoral paulista.
       </p>
     </div>
     <div class="container experiencia__cards">
@@ -172,7 +196,7 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
         <div class="exp-card__body">
           <span class="exp-card__tag">Pré Wedding</span>
           <p>
-            Ambientes reservados para o making of, ensaio fotográfico e preparação da noiva e madrinhas.
+            Ambientes reservados para o making of e preparação da noiva e madrinhas.
           </p>
         </div>
       </div>
@@ -204,6 +228,9 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
         </div>
       </div>
     </div>
+    <div class="experiencia__cta reveal" style="text-align: center; margin-top: 3rem;">
+      <a href="#contato" class="btn btn--primary">Faça sua reserva</a>
+    </div>
   </section>
 
   <!-- ═══ ESTRUTURA — tipográfica, sem ícones ═══ -->
@@ -230,22 +257,22 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
         <span class="estrutura__label">Suíte premium para os noivos</span>
       </div>
       <div class="estrutura__item reveal-stagger" data-num="III">
-        <span class="estrutura__label">SPA da noiva</span>
+        <span class="estrutura__label">Lounge privativo para noiva e madrinhas</span>
       </div>
       <div class="estrutura__item reveal-stagger" data-num="IV">
-        <span class="estrutura__label">Sala das madrinhas</span>
+        <span class="estrutura__label">Hospedagem sofisticada para convidados</span>
       </div>
       <div class="estrutura__item reveal-stagger" data-num="V">
-        <span class="estrutura__label">Vista privilegiada para Ilha Bela</span>
-      </div>
-      <div class="estrutura__item reveal-stagger" data-num="VI">
         <span class="estrutura__label">Acessibilidade</span>
       </div>
+      <div class="estrutura__item reveal-stagger" data-num="VI">
+        <span class="estrutura__label">Sistema de som integrado</span>
+      </div>
       <div class="estrutura__item reveal-stagger" data-num="VII">
-        <span class="estrutura__label">Fácil acesso</span>
+        <span class="estrutura__label">Estacionamento</span>
       </div>
       <div class="estrutura__item reveal-stagger" data-num="VIII">
-        <span class="estrutura__label">Estacionamento</span>
+        <span class="estrutura__label">Gerador próprio para suporte do evento</span>
       </div>
     </div>
   </section>
@@ -738,6 +765,48 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
 </script>
 
 <style is:global>
+  /* ── Autoridade: cabeçalho texto + vídeo 9:16 ── */
+  .autoridade__header {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    text-align: left;
+    margin-bottom: 3rem;
+    justify-content: center;
+  }
+  .autoridade__header-text {
+    flex: 0 1 480px;
+  }
+  .autoridade__video-wrap {
+    width: 320px;
+    flex-shrink: 0;
+    aspect-ratio: 9 / 16;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .autoridade__video-wrap > * {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .autoridade__split {
+    margin-top: 0;
+  }
+  @media (max-width: 900px) {
+    .autoridade__header {
+      flex-direction: column;
+    }
+    .autoridade__header-text {
+      flex: unset;
+      width: 100%;
+    }
+    .autoridade__video-wrap {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+  }
+
   /* Form — overrides dos estilos escopados do LeadForm */
   .contato .lead-form {
     max-width: none;

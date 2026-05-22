@@ -235,6 +235,9 @@ p, li, label, input, textarea, .form__msg {
   padding: 22vh 8% 0;
   overflow: hidden;
 }
+.hero:has(.hero__top) {
+  padding: 14vh 8% 6rem;
+}
 .hero__bg { position: absolute; inset: 0; }
 .hero__bg > img {
   position: absolute; inset: 0;
@@ -252,6 +255,18 @@ p, li, label, input, textarea, .form__msg {
   position: relative; z-index: 2;
   display: flex; flex-direction: column; align-items: center;
   max-width: 820px;
+}
+.hero__content:has(.hero__top) {
+  justify-content: space-between;
+  width: 100%;
+  flex: 1;
+}
+.hero__top {
+  display: flex; flex-direction: column; align-items: center;
+}
+.hero__bottom {
+  display: flex; flex-direction: column; align-items: center;
+  padding-bottom: 1rem;
 }
 .hero__eyebrow {
   font-family: var(--ff-body);
@@ -920,3 +935,80 @@ p, li, label, input, textarea, .form__msg {
   transition: color var(--transition);
 }
 .agape-cal__clear:hover { color: var(--clr-gold-dk); }
+
+/* ════════════════════════════
+   AJUSTES INAUGURAÇÃO ( briefing )
+   ════════════════════════════ */
+
+.hero__text {
+  font-family: var(--ff-body);
+  font-size: var(--fs-md);
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 58ch;
+  line-height: 1.8;
+  margin-top: 1.5rem;
+  margin-bottom: 2.25rem;
+  font-weight: 300;
+}
+
+.reservas {
+  padding: var(--space-xl) 0;
+  background: var(--clr-ivory);
+  border-bottom: 1px solid var(--clr-sand);
+}
+.reservas__inner {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+  width: 90%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+}
+.reservas__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.reservas__text h2 {
+  margin-bottom: 1.25rem;
+  color: var(--clr-dark);
+}
+.reservas__text p {
+  font-size: var(--fs-md);
+  color: var(--clr-mid);
+  margin-bottom: 2.25rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+.reservas__img {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(42,33,24,.08);
+}
+.reservas__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.autoridade__video {
+  width: 100%;
+  max-width: 900px;
+  margin: 3.5rem auto 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(42,33,24,.12);
+  border: 1px solid var(--clr-sand);
+}
+
+@media (max-width: 900px) {
+  .reservas__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  .reservas__img {
+    order: -1;
+  }
+}
