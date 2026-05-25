@@ -81,113 +81,15 @@
     startAuto();
   }
 
-  /* DATE PICKER */
+  /* DATE MASK */
   const dataInput = document.getElementById('data');
   if (dataInput) {
-    const MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-    const DIAS  = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-    let cal = null, curYear, curMonth;
-
-    function parseSel() {
-      const v = dataInput.value;
-      if (/^\d{2}\/\d{2}\/\d{4}$/.test(v)) {
-        const [d, m, y] = v.split('/').map(Number);
-        if (m >= 1 && m <= 12 && d >= 1 && d <= 31) return new Date(y, m - 1, d);
-      }
-      return null;
-    }
-
-    function openCal() {
-      if (cal) return;
-      const sel = parseSel();
-      const ref = sel || new Date();
-      curYear  = ref.getFullYear();
-      curMonth = ref.getMonth();
-
-      cal = document.createElement('div');
-      cal.className = 'agape-cal';
-      document.body.appendChild(cal);
-      renderCal(sel);
-      positionCal();
-    }
-
-    function positionCal() {
-      const r = dataInput.getBoundingClientRect();
-      cal.style.top  = (r.bottom + window.scrollY + 6) + 'px';
-      cal.style.left = (r.left  + window.scrollX) + 'px';
-    }
-
-    function renderCal(sel) {
-      const today = new Date();
-      const first = new Date(curYear, curMonth, 1);
-      const last  = new Date(curYear, curMonth + 1, 0);
-      const startDow = first.getDay();
-
-      let html = `
-        <div class="agape-cal__header">
-          <button class="agape-cal__nav" data-nav="-1">&#8249;</button>
-          <span class="agape-cal__title">${MESES[curMonth]} ${curYear}</span>
-          <button class="agape-cal__nav" data-nav="1">&#8250;</button>
-        </div>
-        <div class="agape-cal__grid">
-          ${DIAS.map(d => `<div class="agape-cal__dow">${d}</div>`).join('')}`;
-
-      for (let i = 0; i < startDow; i++)
-        html += `<div class="agape-cal__day agape-cal__day--other"></div>`;
-
-      for (let d = 1; d <= last.getDate(); d++) {
-        const isToday = today.getFullYear() === curYear && today.getMonth() === curMonth && today.getDate() === d;
-        const isSel   = sel && sel.getFullYear() === curYear && sel.getMonth() === curMonth && sel.getDate() === d;
-        let cls = 'agape-cal__day';
-        if (isToday) cls += ' agape-cal__day--today';
-        if (isSel)   cls += ' agape-cal__day--selected';
-        html += `<div class="${cls}" data-d="${d}">${d}</div>`;
-      }
-
-      html += `</div>
-        <hr class="agape-cal__sep">
-        <button class="agape-cal__clear">Limpar</button>`;
-      cal.innerHTML = html;
-
-      cal.querySelectorAll('[data-nav]').forEach(btn => {
-        btn.addEventListener('click', e => {
-          e.stopPropagation();
-          curMonth += parseInt(btn.dataset.nav);
-          if (curMonth > 11) { curMonth = 0;  curYear++; }
-          if (curMonth < 0)  { curMonth = 11; curYear--; }
-          renderCal(parseSel());
-        });
-      });
-
-      cal.querySelectorAll('[data-d]').forEach(cell => {
-        cell.addEventListener('click', e => {
-          e.stopPropagation();
-          const d  = cell.dataset.d.padStart(2, '0');
-          const m  = String(curMonth + 1).padStart(2, '0');
-          dataInput.value = `${d}/${m}/${curYear}`;
-          closeCal();
-        });
-      });
-
-      cal.querySelector('.agape-cal__clear').addEventListener('click', e => {
-        e.stopPropagation();
-        dataInput.value = '';
-        closeCal();
-      });
-    }
-
-    function closeCal() {
-      if (cal) { cal.remove(); cal = null; }
-    }
-
-    dataInput.setAttribute('readonly', true);
-    dataInput.addEventListener('click', openCal);
-    dataInput.addEventListener('focus', openCal);
-    document.addEventListener('click', e => {
-      if (cal && !cal.contains(e.target) && e.target !== dataInput) closeCal();
+    dataInput.addEventListener('input', function () {
+      let v = this.value.replace(/\D/g, '');
+      if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2);
+      if (v.length > 5) v = v.slice(0, 5) + '/' + v.slice(5);
+      this.value = v.slice(0, 10);
     });
-    window.addEventListener('scroll', () => { if (cal) positionCal(); }, { passive: true });
-    window.addEventListener('resize', () => { if (cal) positionCal(); });
   }
 
   /* PHONE MASK */
@@ -200,5 +102,4 @@
       this.value = v;
     });
   }
-
 })();

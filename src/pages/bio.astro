@@ -1,0 +1,81 @@
+---
+// Gerado a partir de: bio.html
+import Base from '../layouts/Base.astro';
+import config from '../../config.json';
+import LeadForm from '../components/forms/LeadForm.astro';
+import '../styles/bio.css';
+---
+
+<Base
+  title="Ágape Celebration & Convention"
+  ogImage="/images/og-bio.jpg"
+>
+<!-- FORM -->
+  <section class="form-section" id="solicitar">
+    <p class="section-label">Fale conosco</p>
+    <h2 class="section-title">Vamos transformar o seu evento <br><em>em uma experiência marcante?</em></h2>
+
+    <LeadForm
+      formId="lead-form"
+      class="form-card"
+      prefix="bio"
+      project={config.project_slug}
+      submitUrl={config.forms['lead-form'].webhooks[0]}
+      redirectUrl={config.forms['lead-form'].redirect_on_success}
+      submitText="Solicitar orçamento"
+      honeypot
+      fields={[
+        { name: 'nome', type: 'text', label: 'Nome completo', placeholder: 'Seu nome', required: true, full: true },
+        { type: 'row', fields: [
+          { name: 'telefone', id: 'whatsapp', type: 'tel', label: 'WhatsApp', placeholder: '(00) 00000-0000', required: true },
+          { name: 'email', type: 'email', label: 'E-mail', placeholder: 'seu@email.com', required: true }
+        ]},
+        { name: 'tipo', type: 'select', label: 'Tipo de evento', placeholder: '', required: true, full: true, options: [
+          { value: '', label: 'Tipo de evento' },
+          { value: 'Aluguel do espaço', label: 'Aluguel do espaço' },
+          { value: 'Aniversário', label: 'Aniversário' },
+          { value: 'Aniversário debutante', label: 'Aniversário debutante' },
+          { value: 'Bodas', label: 'Bodas' },
+          { value: 'Casamento', label: 'Casamento' },
+          { value: 'Confraternização corporativa', label: 'Confraternização corporativa' },
+          { value: 'Confraternização social', label: 'Confraternização social' },
+          { value: 'Corporativo', label: 'Corporativo' },
+          { value: 'Feiras e Exposições', label: 'Feiras e Exposições' },
+          { value: 'Formatura', label: 'Formatura' },
+          { value: 'Happy Hours', label: 'Happy Hours' },
+          { value: 'Masterclass e Palestras', label: 'Masterclass e Palestras' },
+          { value: 'Mentorias e Treinamentos', label: 'Mentorias e Treinamentos' },
+          { value: 'Offsite corporativo', label: 'Offsite corporativo' },
+          { value: 'Reuniões de Networking', label: 'Reuniões de Networking' },
+          { value: 'Shows e Festivais', label: 'Shows e Festivais' },
+          { value: 'Workshops, Conferências e Seminários', label: 'Workshops, Conferências e Seminários' },
+          { value: 'Outros', label: 'Outros' }
+        ] },
+        { type: 'row', fields: [
+          { name: 'data', type: 'text', label: 'Data do evento', placeholder: 'dd/mm/aaaa', required: true },
+          { name: 'convidados', type: 'number', label: 'Nº de convidados', placeholder: 'Ex: 150', required: true }
+        ]},
+        { name: 'mensagem', type: 'textarea', label: 'Mensagem', placeholder: 'Detalhes adicionais: (Não obrigtório)', required: false, full: true }
+      ]}
+    />
+  </section>
+
+  
+</Base>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script is:inline src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script is:inline src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+<script>
+  import '../scripts/bio.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.flatpickr) {
+      window.flatpickr("#data", {
+        locale: "pt",
+        dateFormat: "d/m/Y",
+      });
+    }
+  });
+</script>
