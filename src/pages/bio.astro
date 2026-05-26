@@ -4,7 +4,9 @@ import Base from '../layouts/Base.astro';
 import config from '../../config.json';
 import LeadForm from '../components/forms/LeadForm.astro';
 import '../styles/bio.css';
-import bgImage from '../assets/images/DSC09366.jpg';
+import { getImage } from 'astro:assets';
+import rawBg from '../assets/images/DSC09366.jpg';
+const bgImage = await getImage({ src: rawBg, format: 'webp' });
 ---
 
 <Base
