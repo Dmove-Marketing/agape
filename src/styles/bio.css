@@ -37,8 +37,25 @@ body {
 
 /* ─── FORM CARD ─────────────────────────────────────── */
 .form-section {
-  background: var(--white);
+  position: relative;
+  background-color: var(--white);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 72px 24px 80px;
+}
+
+.form-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(240, 235, 224, 0.6);
+  pointer-events: none;
+}
+
+.form-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .section-label {
@@ -159,7 +176,8 @@ body {
   min-height: 100px;
 }
 
-.form-privacy {
+.form-privacy,
+.bio-form-footer {
   font-size: .72rem;
   color: #9a8e82;
   text-align: center;
