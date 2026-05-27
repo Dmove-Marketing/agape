@@ -1749,4 +1749,21 @@ textarea,
   .reservas__img {
     order: -1;
   }
+
+  .reservas__text {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hospedagem__text {
+    text-align: center;
+  }
+
+  .contato__text {
+    text-align: center;
+  }
+  .contato__text .ornament {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
