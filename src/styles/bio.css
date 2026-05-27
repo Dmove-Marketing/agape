@@ -35,27 +35,28 @@ body {
   overflow-x: hidden;
 }
 
+/* ─── HERO IMAGE ─────────────────────────────────────── */
+.bio-hero {
+  width: 100%;
+  height: 60vh;
+  min-height: 340px;
+  max-height: 600px;
+  overflow: hidden;
+  display: block;
+}
+
+.bio-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  display: block;
+}
+
 /* ─── FORM CARD ─────────────────────────────────────── */
 .form-section {
-  position: relative;
   background-color: var(--white);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   padding: 72px 24px 80px;
-}
-
-.form-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(240, 235, 224, 0.6);
-  pointer-events: none;
-}
-
-.form-section > * {
-  position: relative;
-  z-index: 1;
 }
 
 .section-label {

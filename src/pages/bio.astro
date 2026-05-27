@@ -5,16 +5,21 @@ import config from '../../config.json';
 import LeadForm from '../components/forms/LeadForm.astro';
 import '../styles/bio.css';
 import { getImage } from 'astro:assets';
-import rawBg from '../assets/images/DSC09366.jpg';
-const bgImage = await getImage({ src: rawBg, format: 'webp' });
+import rawHero from '../assets/images/hero.jpg';
+const heroImage = await getImage({ src: rawHero, format: 'webp' });
 ---
 
 <Base
   title="Ágape Celebration & Convention"
   ogImage="/images/og-bio.jpg"
 >
+<!-- HERO IMAGE -->
+  <section class="bio-hero">
+    <img src={heroImage.src} alt="Cerimônia na praia - Ágape Celebration & Convention" class="bio-hero-img" />
+  </section>
+
 <!-- FORM -->
-  <section class="form-section" id="solicitar" style={`background-image: url(${bgImage.src})`}>
+  <section class="form-section" id="solicitar">
     <p class="section-label">Fale conosco</p>
     <h2 class="section-title">Vamos transformar o seu evento <br><em>em uma experiência marcante?</em></h2>
 
