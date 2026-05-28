@@ -5,7 +5,7 @@ import config from '../../config.json';
 import LeadForm from '../components/forms/LeadForm.astro';
 import '../styles/bio.css';
 import { getImage } from 'astro:assets';
-import rawHero from '../assets/images/hero.jpg';
+import rawHero from '../assets/images/hero_bio.jpg';
 const heroImage = await getImage({ src: rawHero, format: 'webp' });
 ---
 
@@ -16,6 +16,13 @@ const heroImage = await getImage({ src: rawHero, format: 'webp' });
 <!-- HERO IMAGE -->
   <section class="bio-hero">
     <img src={heroImage.src} alt="Cerimônia na praia - Ágape Celebration & Convention" class="bio-hero-img" />
+  </section>
+
+<!-- SITE LINK -->
+  <section class="bio-site-cta">
+    <a href="https://agapeconvention.com.br/" target="_blank" rel="noopener" class="bio-site-btn">
+      Conheça nosso site
+    </a>
   </section>
 
 <!-- FORM -->
