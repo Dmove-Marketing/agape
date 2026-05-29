@@ -5,7 +5,7 @@ import config from '../../config.json';
 import LeadForm from '../components/forms/LeadForm.astro';
 import '../styles/bio.css';
 import { getImage } from 'astro:assets';
-import rawHero from '../assets/images/hero_bio.jpg';
+import rawHero from '../assets/images/hero_bio.jpeg';
 const heroImage = await getImage({ src: rawHero, format: 'webp' });
 ---
 
