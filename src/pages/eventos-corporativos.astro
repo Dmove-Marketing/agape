@@ -730,6 +730,30 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
 </script>
 
 <style is:global>
+  /* Hero — centralização horizontal e vertical */
+  .hero:has(.hero__top) {
+    justify-content: center;
+    padding: 10vh 8% 6rem;
+  }
+  .hero .hero__content {
+    flex: 0 1 auto;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    width: 100%;
+  }
+  .hero__top {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .hero__eyebrow,
+  .hero__title,
+  .hero__lead {
+    text-align: center;
+    width: 100%;
+  }
+
   /* Hero — overlay mais escuro para esta página */
   .hero__overlay {
     background: linear-gradient(to bottom,

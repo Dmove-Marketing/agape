@@ -1004,7 +1004,7 @@ textarea,
 }
 
 .galeria__item:nth-child(4) img {
-  object-position: bottom center;
+  object-position: center;
 }
 
 /* ════════════════════════════
