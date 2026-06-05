@@ -151,6 +151,21 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
     </div>
   </section>
 
+  <!-- ═══ VÍDEO TRANSIÇÃO ═══ -->
+  <section class="video-transicao" aria-hidden="true">
+    <video
+      class="video-transicao__player"
+      autoplay
+      muted
+      loop
+      playsinline
+      data-src-hor="/videos/agape-corp-hor.mp4"
+      data-src-ver="/videos/agape-corp-ver.mp4"
+    >
+      <source src="/videos/agape-corp-hor.mp4" type="video/mp4" />
+    </video>
+  </section>
+
   <!-- ═══ EXPERIÊNCIA ═══ -->
   <section class="experiencia reveal" id="experiencia">
     <div class="container container--narrow">
@@ -573,6 +588,15 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
 </script>
 
 <script>
+  const vt = document.querySelector<HTMLVideoElement>('.video-transicao__player');
+  if (vt && window.matchMedia('(max-width: 768px)').matches) {
+    const src = vt.dataset.srcVer!;
+    vt.querySelector('source')!.src = src;
+    vt.load();
+  }
+</script>
+
+<script>
   const WA_NUMBER  = '5512988719595';
   const WA_MESSAGE = 'Olá! Gostaria de receber mais informações sobre o espaço Ágape Celebration para o meu evento corporativo.';
 
@@ -733,7 +757,7 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
   /* Hero — centralização horizontal e vertical */
   .hero:has(.hero__top) {
     justify-content: center;
-    padding: 10vh 8% 6rem;
+    padding: 22vh 8% 6rem;
   }
   .hero .hero__content {
     flex: 0 1 auto;
@@ -859,11 +883,36 @@ import iconeWaUrl from "../assets/images/Icone-WhatsApp-1.svg?url";
     text-align: center;
   }
   .contato__text h2 {
-    font-size: clamp(1.35rem, 2.4vw, 2rem);
+    font-size: clamp(1.2rem, 1.9vw, 2rem);
+    text-wrap: balance;
   }
   @media (max-width: 640px) {
     .contato .form-row {
       grid-template-columns: 1fr;
+    }
+  }
+
+  /* ── Vídeo transição ── */
+  .video-transicao {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 320px;
+    overflow: hidden;
+    background: #0a0805;
+  }
+  .video-transicao__player {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .video-transicao {
+      height: 75vh;
     }
   }
 
