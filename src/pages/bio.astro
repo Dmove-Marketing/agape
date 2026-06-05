@@ -1,11 +1,11 @@
----
+﻿---
 // Gerado a partir de: bio.html
 import Base from '../layouts/Base.astro';
 import config from '../../config.json';
 import LeadForm from '../components/forms/LeadForm.astro';
 import '../styles/bio.css';
 import { getImage } from 'astro:assets';
-import rawHero from '../assets/images/hero_bio.jpg';
+import rawHero from '../assets/images/hero-bio.jpg';
 const heroImage = await getImage({ src: rawHero, format: 'webp' });
 ---
 
