@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import config from "../../config.json";
 import Img from "../components/ui/Img.astro";
-import Video from "../components/ui/Video.astro";
 import StaticMap from "../components/ui/StaticMap.astro";
 import LeadForm from "../components/forms/LeadForm.astro";
 import "../styles/agape-landing-v4-2.css";
@@ -149,21 +148,6 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
         </p>
       </div>
     </div>
-  </section>
-
-  <!-- ═══ VÍDEO TRANSIÇÃO ═══ -->
-  <section class="video-transicao" aria-hidden="true">
-    <video
-      class="video-transicao__player"
-      autoplay
-      muted
-      loop
-      playsinline
-      data-src-hor="/videos/agape-corp-hor.mp4"
-      data-src-ver="/videos/agape-corp-ver.mp4"
-    >
-      <source src="/videos/agape-corp-hor.mp4" type="video/mp4" />
-    </video>
   </section>
 
   <!-- ═══ EXPERIÊNCIA ═══ -->
@@ -598,15 +582,6 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
 </script>
 
 <script>
-  const vt = document.querySelector<HTMLVideoElement>('.video-transicao__player');
-  if (vt && window.matchMedia('(max-width: 768px)').matches) {
-    const src = vt.dataset.srcVer!;
-    vt.querySelector('source')!.src = src;
-    vt.load();
-  }
-</script>
-
-<script>
   const WA_NUMBER  = '5512988719595';
   const WA_MESSAGE = 'Olá! Gostaria de receber mais informações sobre o espaço Ágape Celebration para o meu evento corporativo.';
 
@@ -899,30 +874,6 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
   @media (max-width: 640px) {
     .contato .form-row {
       grid-template-columns: 1fr;
-    }
-  }
-
-  /* ── Vídeo transição ── */
-  .video-transicao {
-    position: relative;
-    width: 100%;
-    height: 60vh;
-    min-height: 320px;
-    overflow: hidden;
-    background: #0a0805;
-  }
-  .video-transicao__player {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-  }
-  @media (max-width: 768px) {
-    .video-transicao {
-      height: 75vh;
     }
   }
 
