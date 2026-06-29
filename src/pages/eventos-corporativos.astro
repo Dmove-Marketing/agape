@@ -402,12 +402,23 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
           honeypot
           fields={[
             {
-              name: "nome",
-              type: "text",
-              label: "Nome",
-              placeholder: "Seu nome completo",
-              required: true,
-              full: true,
+              type: "row",
+              fields: [
+                {
+                  name: "nome",
+                  type: "text",
+                  label: "Nome",
+                  placeholder: "Seu nome completo",
+                  required: true,
+                },
+                {
+                  name: "Empresa",
+                  type: "text",
+                  label: "Empresa",
+                  placeholder: "Nome da sua empresa",
+                  required: false,
+                },
+              ],
             },
             {
               type: "row",
@@ -519,6 +530,7 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
         <!-- Etapa 1: dados de contato -->
         <div id="waStep1" class="wa-step-fields">
           <input class="wa-input" id="waNome" name="nome" type="text" placeholder="Nome completo" required autocomplete="name" />
+          <input class="wa-input" id="waEmpresa" name="Empresa" type="text" placeholder="Nome da empresa" autocomplete="organization" />
           <input class="wa-input" id="waTelefone" name="telefone" type="tel" placeholder="(00) 00000-0000" required autocomplete="tel" />
           <input class="wa-input" id="waEmail" name="email" type="email" placeholder="E-mail" required autocomplete="email" />
         </div>
