@@ -112,7 +112,7 @@ export function initForms() {
       const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 
       const capitalizedFields: Record<string, string> = {};
-      let fonteBase = rawData['fonte'] || project;
+      let fonteBase = rawData['fonte'] || `Landing page/${project}`;
       Object.entries(rawData).forEach(([key, val]) => {
         if (key === 'fonte') return;
         const capKey = key.charAt(0).toUpperCase() + key.slice(1);
