@@ -508,7 +508,6 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
       <!-- Formulário -->
       <form
         id="waForm"
-        data-form-id="whatsapp-form"
         data-project="casamentos"
         data-submit-url={config.forms["lead-form"].webhooks[0]}
         novalidate
@@ -531,7 +530,7 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
         <p class="wa-error" id="waError" style="display:none"></p>
 
         <button class="wa-submit" type="button" id="waNextBtn">Seguir</button>
-        <button class="wa-submit wa-submit--send" type="submit" id="waSubmitBtn" style="display:none">
+        <button class="wa-submit wa-submit--send" type="button" id="waSubmitBtn" style="display:none">
           <span class="wa-submit__text">Enviar e continuar no WhatsApp</span>
           <span class="wa-submit__loading" style="display:none">Enviando…</span>
         </button>
@@ -653,15 +652,7 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
   });
 
   // Submissão
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Se ainda está na etapa 1, avança em vez de enviar
-    if (step2El.style.display === 'none') {
-      nextBtn.click();
-      return;
-    }
-
+  async function handleSubmit() {
     const hp = form.querySelector<HTMLInputElement>('[name="website"]');
     if (hp?.value) return;
 
@@ -733,6 +724,20 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
       submitBtn.disabled = false;
       btnText.style.display = 'inline';
       btnLoad.style.display = 'none';
+    }
+  }
+
+  submitBtn.addEventListener('click', handleSubmit);
+
+  form.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'TEXTAREA' || target.tagName === 'BUTTON') return;
+    e.preventDefault();
+    if (step2El.style.display === 'none') {
+      nextBtn.click();
+    } else {
+      handleSubmit();
     }
   });
 </script>

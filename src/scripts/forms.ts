@@ -42,13 +42,10 @@ export function initForms() {
       }
     });
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
+    async function handleSubmit() {
       const hp = form.querySelector<HTMLInputElement>('[name="website"]');
       if (hp && hp.value) return;
 
-      // Validação de campos obrigatórios
       let firstInvalid: HTMLElement | null = null;
       let isValid = true;
 
@@ -79,7 +76,7 @@ export function initForms() {
         return;
       }
 
-      const submitBtn  = form.querySelector<HTMLButtonElement>('.form-submit, [type="submit"]');
+      const submitBtn  = form.querySelector<HTMLButtonElement>('.form-submit');
       const btnText    = submitBtn?.querySelector<HTMLElement>('.btn-text');
       const btnLoading = submitBtn?.querySelector<HTMLElement>('.btn-loading');
 
@@ -129,7 +126,6 @@ export function initForms() {
       trackingParamKeys.forEach(k => { if (tracking[k]) qs.set(k, tracking[k]); });
       const fonte = qs.toString() ? `${fonteBase}?${qs.toString()}` : fonteBase;
 
-      // Campos Meta CAPI — enviados também como campos flat para uso direto no n8n
       const metaCapi: Record<string, string> = {};
       if (tracking['fbc'])         metaCapi['fbc']         = tracking['fbc'];
       if (tracking['fbp'])         metaCapi['fbp']         = tracking['fbp'];
@@ -204,6 +200,17 @@ export function initForms() {
           }
         }
       }
+    }
+
+    const submitBtn = form.querySelector<HTMLButtonElement>('.form-submit');
+    submitBtn?.addEventListener('click', handleSubmit);
+
+    form.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'TEXTAREA' || target.tagName === 'BUTTON') return;
+      e.preventDefault();
+      handleSubmit();
     });
   });
 }
