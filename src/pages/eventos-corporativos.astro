@@ -416,7 +416,7 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
                   type: "text",
                   label: "Empresa",
                   placeholder: "Nome da sua empresa",
-                  required: false,
+                  required: true,
                 },
               ],
             },
@@ -447,14 +447,14 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
                   type: "text",
                   label: "Data do Evento",
                   placeholder: "dd/mm/aaaa",
-                  required: false,
+                  required: true,
                 },
                 {
                   name: "convidados",
                   type: "number",
                   label: "Número de Participantes",
                   placeholder: "Ex: 50",
-                  required: false,
+                  required: true,
                 },
               ],
             },
@@ -529,15 +529,15 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
         <!-- Etapa 1: dados de contato -->
         <div id="waStep1" class="wa-step-fields">
           <input class="wa-input" id="waNome" name="nome" type="text" placeholder="Nome completo" required autocomplete="name" />
-          <input class="wa-input" id="waEmpresa" name="Empresa" type="text" placeholder="Nome da empresa" autocomplete="organization" />
+          <input class="wa-input" id="waEmpresa" name="Empresa" type="text" placeholder="Nome da empresa" required autocomplete="organization" />
           <input class="wa-input" id="waTelefone" name="telefone" type="tel" placeholder="(00) 00000-0000" required autocomplete="tel" />
           <input class="wa-input" id="waEmail" name="email" type="email" placeholder="E-mail" required autocomplete="email" />
         </div>
 
         <!-- Etapa 2: dados do evento -->
         <div id="waStep2" class="wa-step-fields" style="display:none">
-          <input class="wa-input" id="waData" name="Data do evento" type="text" placeholder="Data do evento (dd/mm/aaaa)" readonly />
-          <input class="wa-input" id="waConvidados" name="convidados" type="number" placeholder="Número de participantes" />
+          <input class="wa-input" id="waData" name="Data do evento" type="text" placeholder="Data do evento (dd/mm/aaaa)" required readonly />
+          <input class="wa-input" id="waConvidados" name="convidados" type="number" placeholder="Número de participantes" required />
         </div>
 
         <p class="wa-error" id="waError" style="display:none"></p>
@@ -676,6 +676,21 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
 
   // Submissão
   async function handleSubmit() {
+    errorEl.style.display = 'none';
+    let firstInvalid2: HTMLElement | null = null;
+    let valid2 = true;
+    step2El.querySelectorAll<HTMLElement>('[required]').forEach((f) => {
+      const empty = !(f as HTMLInputElement).value.trim();
+      if (empty) {
+        valid2 = false;
+        (f as HTMLElement).style.borderColor = '#ef4444';
+        if (!firstInvalid2) firstInvalid2 = f;
+        const clear = () => { (f as HTMLElement).style.removeProperty('border-color'); f.removeEventListener('input', clear); };
+        f.addEventListener('input', clear);
+      }
+    });
+    if (!valid2) { firstInvalid2!.focus(); return; }
+
     const hp = form.querySelector<HTMLInputElement>('[name="website"]');
     if (hp?.value) return;
 
