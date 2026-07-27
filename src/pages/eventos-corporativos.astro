@@ -692,7 +692,8 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
     const qs = new URLSearchParams();
     paramKeys.forEach(k => { if (tracking[k]) qs.set(k, tracking[k]); });
     const submitUrl = form.dataset.submitUrl!;
-    const fonte = qs.toString() ? `${submitUrl}?${qs.toString()}` : submitUrl;
+    const fonteBase = `Landing page/${form.dataset.project || window.location.hostname}`;
+    const fonte = qs.toString() ? `${fonteBase}?${qs.toString()}` : fonteBase;
 
     const metaCapi: Record<string,string> = {};
     if (tracking['fbc'])         metaCapi['fbc']         = tracking['fbc'];
