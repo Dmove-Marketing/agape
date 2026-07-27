@@ -67,7 +67,7 @@ const heroImage = await getImage({ src: rawHero, format: 'webp' });
           { value: 'Outros', label: 'Outros' }
         ] },
         { type: 'row', fields: [
-          { name: 'data', type: 'text', label: 'Data do evento', placeholder: 'dd/mm/aaaa', required: true },
+          { name: 'Data do evento', id: 'data-evento', type: 'text', label: 'Data do evento', placeholder: 'dd/mm/aaaa', required: true, readonly: true },
           { name: 'convidados', type: 'number', label: 'Nº de convidados', placeholder: 'Ex: 150', required: true }
         ]},
         { name: 'mensagem', type: 'textarea', label: 'Mensagem', placeholder: 'Detalhes adicionais: (Não obrigtório)', required: false, full: true }
@@ -87,7 +87,7 @@ const heroImage = await getImage({ src: rawHero, format: 'webp' });
 
   document.addEventListener('DOMContentLoaded', () => {
     if (window.flatpickr) {
-      window.flatpickr("#data", {
+      window.flatpickr("#data-evento", {
         locale: "pt",
         dateFormat: "d/m/Y",
       });

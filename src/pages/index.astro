@@ -523,7 +523,7 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
 
         <!-- Etapa 2: dados do evento -->
         <div id="waStep2" class="wa-step-fields" style="display:none">
-          <input class="wa-input" id="waData" name="data" type="text" placeholder="Data do evento (dd/mm/aaaa)" />
+          <input class="wa-input" id="waData" name="Data do evento" type="text" placeholder="Data do evento (dd/mm/aaaa)" readonly />
           <input class="wa-input" id="waConvidados" name="convidados" type="number" placeholder="Número de convidados" />
         </div>
 
@@ -575,6 +575,11 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
     </div>
   </footer>
 </Base>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script is:inline src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script is:inline src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
 <script>
   import "../scripts/agape-landing-v4-2.js";
 </script>
@@ -614,6 +619,11 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
   closeBtn.addEventListener('click', closePopup);
   backdrop.addEventListener('click', closePopup);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+
+  // Flatpickr — campo data do evento
+  if ((window as any).flatpickr) {
+    (window as any).flatpickr('#waData', { locale: 'pt', dateFormat: 'd/m/Y', disableMobile: true });
+  }
 
   // Máscara de telefone
   const telInput = form.querySelector<HTMLInputElement>('[name="telefone"]')!;
