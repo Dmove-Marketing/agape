@@ -519,7 +519,7 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
 
       <!-- Formulário -->
       <form
-        id="waForm"
+        id="form-whatsapp"
         data-project="eventos-corporativos"
         data-submit-url={config.forms["lead-form"].webhooks[0]}
         novalidate
@@ -605,7 +605,7 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
   const popup      = document.getElementById('waPopup')!;
   const closeBtn   = document.getElementById('waPopupClose')!;
   const floatBtn   = document.getElementById('waFloat')!;
-  const form       = document.getElementById('waForm') as HTMLFormElement;
+  const form       = (document.getElementById('form-whatsapp') || document.getElementById('waForm')) as HTMLFormElement;
   const errorEl    = document.getElementById('waError')!;
   const step1El    = document.getElementById('waStep1')!;
   const step2El    = document.getElementById('waStep2')!;
@@ -703,8 +703,13 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
     const raw: Record<string, string> = {};
     formData.forEach((v, k) => { if (k !== 'website') raw[k] = v.toString(); });
 
-    const trackingRaw = sessionStorage.getItem('dmove_tracking');
-    const tracking: Record<string, string> = trackingRaw ? JSON.parse(trackingRaw) : {};
+    let tracking: Record<string, string> = {};
+    try {
+      const trackingRaw = sessionStorage.getItem('dmove_tracking');
+      if (trackingRaw) tracking = JSON.parse(trackingRaw);
+    } catch (e) {
+      console.warn('dmove_tracking parse error', e);
+    }
     const now = new Date();
 
     const capitalized: Record<string, string> = {};
@@ -741,14 +746,23 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
     };
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+
       const res = await fetch(submitUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
+
       if (!res.ok) throw new Error('http_' + res.status);
 
       (window as any).dataLayer?.push({ event: 'form_submit', form_id: 'whatsapp-form', project: form.dataset.project, ...capitalized });
+
+      // Dispara o evento DOM submit nativo para ativar o acionador "Envio de formulário" (gtm.formSubmit) do GTM
+      form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 
       const encoded = encodeURIComponent(WA_MESSAGE);
       const waUrl = WA_NUMBER
@@ -1038,7 +1052,7 @@ import iconeWaUrl from "../assets/images/icone-whatsapp.svg?url";
   }
 
   /* Campos do formulário */
-  #waForm { display: flex; flex-direction: column; gap: 0.55rem; }
+  #form-whatsapp, #waForm { display: flex; flex-direction: column; gap: 0.55rem; }
   .wa-step-fields { display: flex; flex-direction: column; gap: 0.55rem; }
   .wa-hp {
     position: absolute; left: -9999px; width: 1px; height: 1px;

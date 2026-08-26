@@ -101,8 +101,13 @@ export function initForms() {
       const rawData: Record<string, string> = {};
       formData.forEach((v, k) => { if (k !== 'website') rawData[k] = v.toString(); });
 
-      const trackingRaw = sessionStorage.getItem('dmove_tracking');
-      const tracking: Record<string, string> = trackingRaw ? JSON.parse(trackingRaw) : {};
+      let tracking: Record<string, string> = {};
+      try {
+        const trackingRaw = sessionStorage.getItem('dmove_tracking');
+        if (trackingRaw) tracking = JSON.parse(trackingRaw);
+      } catch (e) {
+        console.warn('dmove_tracking parse error', e);
+      }
 
       const now = new Date();
       const dateStr = now.toLocaleDateString('pt-BR');
@@ -147,11 +152,16 @@ export function initForms() {
       };
 
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+
         const res = await fetch(submitUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
+          signal: controller.signal,
         });
+        clearTimeout(timeoutId);
 
         if (!res.ok) throw new Error('http_' + res.status);
 
@@ -159,6 +169,9 @@ export function initForms() {
         try { json = await res.json(); } catch {}
 
         (window as any).dataLayer?.push({ event: 'form_submit', form_id: formId, project, ...capitalizedFields });
+
+        // Dispara o evento DOM submit nativo para ativar o acionador "Envio de formulário" (gtm.formSubmit) do GTM
+        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 
         const redir = redirectUrl || json.redirect;
         if (redir) {
